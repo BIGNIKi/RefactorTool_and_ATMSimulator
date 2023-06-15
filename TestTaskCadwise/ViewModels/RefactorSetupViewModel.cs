@@ -7,9 +7,9 @@ namespace TestTaskCadwise1.ViewModels
 {
     public class RefactorSetupViewModel : ViewModelBase
     {
-        private int _lengthWords;
+        private string _lengthWords = "0";
 
-        public int LengthWords
+        public string LengthWords
         {
             get
             {
@@ -17,12 +17,25 @@ namespace TestTaskCadwise1.ViewModels
             }
             set
             {
-                if(value < 0)
+                try
                 {
-                    throw new ArgumentException("Length cannot be less than zero");
+                    if(string.IsNullOrEmpty(value))
+                    {
+                        _lengthWords = "0";
+                    }
+                    else if(int.Parse(value) < 0 || value[0] == '-')
+                    {
+                        throw new ArgumentException("Length cannot be less than zero");
+                    }
+                    else
+                    {
+                        _lengthWords = value;
+                    }
+                    OnPropertyChanged(nameof(LengthWords));
                 }
-                _lengthWords = value;
-                OnPropertyChanged(nameof(LengthWords));
+                catch(Exception)
+                {
+                }
             }
         }
 
@@ -41,13 +54,28 @@ namespace TestTaskCadwise1.ViewModels
             }
         }
 
+        private bool _isfileSelected = false;
+
+        public bool IsFileSelected
+        {
+            get
+            {
+                return _isfileSelected;
+            }
+            set
+            {
+                _isfileSelected = value;
+                OnPropertyChanged(nameof(IsFileSelected));
+            }
+        }
+
         public ICommand ChooseFileBtn { get; }
         public ICommand DoRefactorBtn { get; }
 
         public RefactorSetupViewModel( ResourceDictionary resources )
         {
             ChooseFileBtn = new ChooseFileCommand(this, resources);
-            DoRefactorBtn = new DoRefactorCommand();
+            DoRefactorBtn = new DoRefactorCommand(this);
         }
     }
 }

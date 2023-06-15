@@ -25,8 +25,9 @@ namespace TestTaskCadwise1.Commands
             openFileDialog.Filter = _appResources["m_fileDilogSelectFile"].ToString();
             if(openFileDialog.ShowDialog() == true)
             {
-                string fName = openFileDialog.FileName;
-                ((ContentControl)parameter).Content = _appResources["m_SelectedFile"] + " " + fName;
+                _refactorSetupViewModel.IsFileSelected = true;
+                var labelObj = ((ContentControl)parameter);
+                labelObj.Content = _appResources["m_SelectedFile"] + " " + openFileDialog.FileName;
             }
         }
     }
