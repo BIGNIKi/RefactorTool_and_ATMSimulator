@@ -9,6 +9,6 @@
         ResizeMode="CanMinimize"
         FontSize="14">
     <Grid Margin="20 10 0 0">
-        <views:RefactorSetupView/>
+        <views:RefactorSetupView DataContext="{Binding CurrentViewMode}"/>
     </Grid>
 </Window>

@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <Label 
-            Content="Text refactor tool" 
+            Content="{DynamicResource m_Title}" 
             FontSize="24" 
             Grid.Row="0" />
 
@@ -28,30 +28,40 @@
 
             <Button
                 Grid.Row="1"
-                Content="Выбрать файл"
-                Height="26"/>
+                Content="{DynamicResource m_SelectFileBtn}"
+                Height="26"
+                Command="{Binding ChooseFileBtn}"
+                CommandParameter="{Binding ElementName =SelectedFileLabel}"/>
 
             <Label
-                Content="Выбранный файл: "
+                x:Name="SelectedFileLabel"
+                Content="{DynamicResource m_SelectedFile}"
                 Grid.Column="1"
                 Margin="5 0 0 0"/>
         </Grid>
 
         <Grid Grid.Row="2" Margin="20 10 0 0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <Label
-                Content="Длина слов: "
+                Content="{DynamicResource m_LengthOfWords}"
                 Grid.Column="0"/>
 
             <TextBox
                 Grid.Column="1"
-                Text=""
                 Width="50"
-                Height="22.5"/>
+                Height="22.5">
+                <TextBox.Text>
+                    <Binding Path="LengthWords" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </Grid>
 
         <Grid Grid.Row="3" Margin="20 10 0 0">
@@ -61,20 +71,22 @@
             </Grid.ColumnDefinitions>
 
             <Label
-                Content="Удалять знаки препинания: "
+                Content="{DynamicResource m_RemovePunctuationMarks}"
                 Grid.Column="0"/>
 
             <CheckBox
                 Grid.Column="1"
-                VerticalAlignment="Center"/>
+                VerticalAlignment="Center"
+                IsChecked="{Binding ShouldDeletePuncMarks}"/>
         </Grid>
 
         <Button
             Grid.Row="4"
-            Content="Обработать файл"
+            Content="{DynamicResource m_DoRefactorBtn}"
             Margin="20 10 0 0"
             HorizontalAlignment="Left"
-            Height="26"/>
+            Height="26"
+            Command="{Binding DoRefactorBtn}"/>
         
         <Label
             Content="Файлов в очереди на обработку: 0"
