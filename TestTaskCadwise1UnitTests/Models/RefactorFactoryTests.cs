@@ -15,7 +15,7 @@ namespace TestTaskCadwise1.Models.Tests
             string outFilePath = RunningPath + "Resources\\RefactorFactory\\sample" + TestNum + "-ref.txt";
             string checkFilePath = RunningPath + "Resources\\RefactorFactory\\sample" + TestNum + "-check.txt";
 
-            RefactorFactory.AddRefactorTask(outFilePath,
+            RefactorFactory.DoRefactor(outFilePath,
                 RunningPath + "Resources\\RefactorFactory\\sample" + TestNum + ".txt", true, 5);
 
             AssertTwoFilesEqulity(outFilePath, checkFilePath);
@@ -31,7 +31,7 @@ namespace TestTaskCadwise1.Models.Tests
             string outFilePath = RunningPath + "Resources\\RefactorFactory\\sample" + TestNum + "-ref.txt";
             string checkFilePath = RunningPath + "Resources\\RefactorFactory\\sample" + TestNum + "-check.txt";
 
-            RefactorFactory.AddRefactorTask(outFilePath,
+            RefactorFactory.DoRefactor(outFilePath,
                 RunningPath + "Resources\\RefactorFactory\\sample" + TestNum +".txt", false, 77);
 
             AssertTwoFilesEqulity(outFilePath, checkFilePath);
@@ -47,10 +47,12 @@ namespace TestTaskCadwise1.Models.Tests
             string outFilePath = RunningPath + "Resources\\RefactorFactory\\sample" + TestNum + "-ref.txt";
             string checkFilePath = RunningPath + "Resources\\RefactorFactory\\sample" + TestNum + "-check.txt";
 
-            RefactorFactory.AddRefactorTask(outFilePath,
+            RefactorFactory.DoRefactor(outFilePath,
                 RunningPath + "Resources\\RefactorFactory\\sample" + TestNum + ".txt", true, 100);
 
             AssertTwoFilesEqulity(outFilePath, checkFilePath);
+
+            FileGenerator.GenerateFile4();
         }
 
         private void AssertTwoFilesEqulity(string path1, string path2)

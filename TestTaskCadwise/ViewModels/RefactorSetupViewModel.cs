@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using TestTaskCadwise1.Commands;
@@ -8,6 +9,8 @@ namespace TestTaskCadwise1.ViewModels
 {
     public class RefactorSetupViewModel : ViewModelBase
     {
+        public ResourceDictionary AppResources { get; }
+
         private string _lengthWords;
 
         public string LengthWords
@@ -70,20 +73,70 @@ namespace TestTaskCadwise1.ViewModels
             }
         }
 
-        public string OpenedFileName { get; set; }
+        private string _queueInfo;
+
+        public string QueueInfo
+        {
+            get
+            {
+                return _queueInfo;
+            }
+            set
+            {
+                _queueInfo = AppResources["m_QueueInfo"] + " " + value;
+                OnPropertyChanged(nameof(QueueInfo));
+            }
+        }
+
+        private string _openedFileName;
+        public string OpenedFileName
+        {
+            get
+            {
+                return _openedFileName;
+            }
+            set
+            {
+                _openedFileName = value;
+                DisplayedOpenedFileName = AppResources["m_SelectedFile"] + " " + value;
+            }
+        }
+
+        private string _displayedOpenedFileName;
+        public string DisplayedOpenedFileName
+        {
+            get
+            {
+                return _displayedOpenedFileName;
+            }
+            set
+            {
+                _displayedOpenedFileName = value;
+                OnPropertyChanged(nameof(DisplayedOpenedFileName));
+            }
+        }
 
         public RefactorFactory RefactorFactory { get; set; }
 
         public ICommand ChooseFileBtn { get; }
         public ICommand DoRefactorBtn { get; }
 
+        private void onElemInQueueChanged( object? sender, PropertyChangedEventArgs e )
+        {
+            QueueInfo = RefactorFactory.CountOfElemInProgress.ToString();
+        }
+
         public RefactorSetupViewModel( ResourceDictionary resources )
         {
+            AppResources = resources;
             _lengthWords = "0";
             OpenedFileName = "";
             RefactorFactory = new();
-            ChooseFileBtn = new ChooseFileCommand(this, resources);
-            DoRefactorBtn = new DoRefactorCommand(this, resources, RefactorFactory);
+            ChooseFileBtn = new ChooseFileCommand(this);
+            DoRefactorBtn = new DoRefactorCommand(this);
+            RefactorFactory.PropertyChanged += onElemInQueueChanged;
+            QueueInfo = "0";
+            OpenedFileName = "";
         }
     }
 }

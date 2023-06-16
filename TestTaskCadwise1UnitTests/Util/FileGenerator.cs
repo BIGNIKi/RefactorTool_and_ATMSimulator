@@ -51,5 +51,20 @@
 
             writer.Close();
         }
+
+        public static void GenerateFile4()
+        {
+            string RunningPath = AppDomain.CurrentDomain.BaseDirectory;
+            string outFilePath = RunningPath + "Resources\\RefactorFactory\\sample100.txt";
+            StreamWriter writer = new(outFilePath);
+
+            long max = int.MaxValue;
+            for(long i = 0; i < max; i++)
+            {
+                writer.Write('a');
+            }
+
+            writer.Close();
+        }
     }
 }
