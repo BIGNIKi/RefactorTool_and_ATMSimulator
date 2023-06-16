@@ -2,12 +2,13 @@
 using System.Windows;
 using System.Windows.Input;
 using TestTaskCadwise1.Commands;
+using TestTaskCadwise1.Models;
 
 namespace TestTaskCadwise1.ViewModels
 {
     public class RefactorSetupViewModel : ViewModelBase
     {
-        private string _lengthWords = "0";
+        private string _lengthWords;
 
         public string LengthWords
         {
@@ -69,13 +70,20 @@ namespace TestTaskCadwise1.ViewModels
             }
         }
 
+        public string OpenedFileName { get; set; }
+
+        public RefactorFactory RefactorFactory { get; set; }
+
         public ICommand ChooseFileBtn { get; }
         public ICommand DoRefactorBtn { get; }
 
         public RefactorSetupViewModel( ResourceDictionary resources )
         {
+            _lengthWords = "0";
+            OpenedFileName = "";
+            RefactorFactory = new();
             ChooseFileBtn = new ChooseFileCommand(this, resources);
-            DoRefactorBtn = new DoRefactorCommand(this);
+            DoRefactorBtn = new DoRefactorCommand(this, resources, RefactorFactory);
         }
     }
 }
