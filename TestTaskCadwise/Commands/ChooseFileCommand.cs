@@ -1,5 +1,4 @@
-﻿using System.Windows.Controls;
-using TestTaskCadwise1.Models;
+﻿using TestTaskCadwise1.Models;
 using TestTaskCadwise1.ViewModels;
 
 namespace TestTaskCadwise1.Commands

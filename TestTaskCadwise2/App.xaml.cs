@@ -1,7 +1,11 @@
-﻿using System.Windows;
-using TestTaskCadwise1.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Windows;
+using TestTaskCadwise2.ViewModels;
 
-namespace TestTaskCadwise
+namespace TestTaskCadwise2
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -12,7 +16,7 @@ namespace TestTaskCadwise
         {
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(Resources)
+                DataContext = new MainViewModel()
             };
             MainWindow.Show();
 
