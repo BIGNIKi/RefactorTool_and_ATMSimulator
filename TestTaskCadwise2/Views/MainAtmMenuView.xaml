@@ -13,37 +13,31 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Label
-            Content="{DynamicResource m_Title}"
-            FontSize="24"
-            Grid.Row="0"/>
-
-        <Label
             Content="{DynamicResource m_InfoText}"
-            Grid.Row="1"
+            Grid.Row="0"
             Margin="20 15 0 0 "
             />
 
         <Button
-            Grid.Row="2"
+            Grid.Row="1"
             Content="{DynamicResource m_GetCashBtn}"
             Margin="40 10 0 0"/>
 
         <Button
-            Grid.Row="3"
+            Grid.Row="2"
             Content="{DynamicResource m_DepositBtn}"
             Margin="40 10 0 0"/>
 
         <Button
-            Grid.Row="4"
+            Grid.Row="3"
             Content="{DynamicResource m_StateBtn}"
             Margin="40 10 0 0"/>
 
         <Button
-            Grid.Row="5"
+            Grid.Row="4"
             Content="{DynamicResource m_ChangeLanguageBtn}"
             Margin="40 10 0 0"
             Command="{Binding ChangeLanguageCommand}"/>

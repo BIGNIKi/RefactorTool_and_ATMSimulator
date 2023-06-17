@@ -10,6 +10,18 @@
         ResizeMode="CanMinimize"
         FontSize="14">
     <Grid Margin="20 10 0 0">
-        <views:MainAtmMenuView DataContext="{Binding CurrentViewModel}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label
+            Content="{DynamicResource m_Title}"
+            FontSize="24"
+            Grid.Row="0"/>
+        
+        <views:MainAtmMenuView
+            Grid.Row="1"
+            DataContext="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

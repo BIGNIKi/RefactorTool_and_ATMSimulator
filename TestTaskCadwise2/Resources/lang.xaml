@@ -8,5 +8,13 @@
     <v:String x:Key="m_DepositBtn">Deposit</v:String>
     <v:String x:Key="m_StateBtn">Show ATM state</v:String>
     <v:String x:Key="m_ChangeLanguageBtn">Change language</v:String>
-    
+
+    <!-- User control ATMStateView -->
+    <v:String x:Key="m_StateLabel">ATM state</v:String>
+    <v:String x:Key="m_BalanceInfo">Account balance:</v:String>
+    <v:String x:Key="m_AvailableBanknotes">Available banknotes:</v:String>
+
+    <!-- Shared -->
+    <v:String x:Key="m_back">Back</v:String>
+
 </ResourceDictionary>
