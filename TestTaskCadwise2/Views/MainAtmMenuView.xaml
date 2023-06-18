@@ -29,7 +29,8 @@
         <Button
             Grid.Row="2"
             Content="{DynamicResource m_DepositBtn}"
-            Margin="40 10 0 0"/>
+            Margin="40 10 0 0"
+            Command="{Binding ShowATMDepositCommand}"/>
 
         <Button
             Grid.Row="3"

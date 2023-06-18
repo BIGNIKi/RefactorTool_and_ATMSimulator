@@ -14,6 +14,11 @@ namespace TestTaskCadwise2.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public ViewModelBase( )
+        {
+
+        }
+
         public ViewModelBase( NavigationState navigationState )
         {
             NavigationState = navigationState;

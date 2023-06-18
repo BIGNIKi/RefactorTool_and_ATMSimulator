@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Windows;
 using System.Windows.Input;
 using TestTaskCadwise2.Commands;
 using TestTaskCadwise2.Models;
@@ -7,21 +7,28 @@ namespace TestTaskCadwise2.ViewModels
 {
     public class MainAtmMenuViewModel : ViewModelBase
     {
+        public ResourceDictionary AppResources { get; }
+
         public ICommand ChangeLanguageCommand { get; }
         public ICommand ShowATMStateCommand { get; }
-
-        private List<BanknoteInfo> _banknotes;
+        public ICommand ShowATMDepositCommand { get; }
 
         private ATMStateViewModel CreateATMStateViewModel()
         {
-            return new ATMStateViewModel(NavigationState, _banknotes);
+            return new ATMStateViewModel(NavigationState, AppResources);
         }
 
-        public MainAtmMenuViewModel( NavigationState navigationState, List<BanknoteInfo> banknotes ) : base(navigationState)
+        private ATMDepositViewModel CreateATMDepositViewModel()
         {
-            _banknotes = banknotes;
+            return new ATMDepositViewModel(NavigationState, AppResources);
+        }
+
+        public MainAtmMenuViewModel( NavigationState navigationState, ResourceDictionary appResources ) : base(navigationState)
+        {
+            AppResources = appResources;
             ChangeLanguageCommand = new ChangeLanguageCommand(this);
             ShowATMStateCommand = new NavigationCommand(this, CreateATMStateViewModel);
+            ShowATMDepositCommand = new NavigationCommand(this, CreateATMDepositViewModel);
         }
     }
 }

@@ -43,6 +43,19 @@ namespace TestTaskCadwise1.ViewModels
             }
         }
 
+        private bool _isValidInputLengthWords;
+
+        public bool IsValidInputLengthWords
+        {
+            get => _isValidInputLengthWords;
+
+            set
+            {
+                _isValidInputLengthWords = value;
+                OnPropertyChanged(nameof(IsValidInputLengthWords));
+            }
+        }
+
         private bool _shouldDeletePuncMarks;
 
         public bool ShouldDeletePuncMarks

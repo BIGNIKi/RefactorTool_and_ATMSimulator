@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using TestTaskCadwise2.Commands;
 using TestTaskCadwise2.Models;
@@ -7,20 +8,22 @@ namespace TestTaskCadwise2.ViewModels
 {
     public class ATMStateViewModel : ViewModelBase
     {
+        public ResourceDictionary AppResources { get; }
+
         public List<BanknoteInfo> Banknotes { get; set; }
 
         public ICommand BackToMainMenuCommand { get; }
 
         private MainAtmMenuViewModel CreateMainAtmMenuViewModel()
         {
-            return new MainAtmMenuViewModel(NavigationState, Banknotes);
+            return new MainAtmMenuViewModel(NavigationState, AppResources);
         }
 
-        public ATMStateViewModel( NavigationState navigationState, List<BanknoteInfo> _banknotes ) : base(navigationState)
+        public ATMStateViewModel( NavigationState navigationState, ResourceDictionary appResources ) : base(navigationState)
         {
-            BackToMainMenuCommand = new NavigationCommand(this, CreateMainAtmMenuViewModel);
+            AppResources = appResources;
 
-            Banknotes = _banknotes;
+            BackToMainMenuCommand = new NavigationCommand(this, CreateMainAtmMenuViewModel);
         }
     }
 }

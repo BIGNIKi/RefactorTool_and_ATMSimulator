@@ -1,7 +1,11 @@
-﻿namespace TestTaskCadwise2.Models
+﻿using System;
+
+namespace TestTaskCadwise2.Models
 {
     public class BanknoteInfo
     {
+        public int BanknoteValue { get; }
+
         public string Banknote { get; }
         public string CountInfo
         {
@@ -15,9 +19,12 @@
 
         public int Count { get; set; }
 
-        public BanknoteInfo( string banknote, int capacity, int initialCount )
+        public BanknoteInfo( int banknote, int capacity, int initialCount)
         {
-            Banknote = banknote; 
+            if(initialCount > capacity)
+                throw new ArgumentException("Initial count can't be more than capacity");
+            BanknoteValue = banknote;
+            Banknote = banknote.ToString() + " ₽"; 
             Capacity = capacity;
             Count = initialCount;
         }

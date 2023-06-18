@@ -13,6 +13,12 @@
     <v:String x:Key="m_StateLabel">Отображение состояния</v:String>
     <v:String x:Key="m_BalanceInfo">Баланс:</v:String>
     <v:String x:Key="m_AvailableBanknotes">Доступыне купюры:</v:String>
+    
+    <!-- User control ATMStateView -->
+    <v:String x:Key="m_DepositInfo">Внесение наличных</v:String>
+    <v:String x:Key="m_DepositInfoSum">Введите сумму кратную 10 ₽ и не более 150000 ₽</v:String>
+    <v:String x:Key="m_InputDepositInfo">поле для ввода</v:String>
+    <v:String x:Key="m_Deposit">Внести</v:String>
 
     <!-- Shared -->
     <v:String x:Key="m_back">Назад</v:String>

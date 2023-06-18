@@ -18,6 +18,9 @@
             <DataTemplate DataType="{x:Type vms:ATMStateViewModel}">
                 <views:ATMStateView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ATMDepositViewModel}">
+                <views:ATMDepositView/>
+            </DataTemplate>
         </Grid.Resources>
 
         <Grid.RowDefinitions>
