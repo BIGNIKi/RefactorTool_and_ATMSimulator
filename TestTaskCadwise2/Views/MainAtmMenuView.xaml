@@ -34,7 +34,8 @@
         <Button
             Grid.Row="3"
             Content="{DynamicResource m_StateBtn}"
-            Margin="40 10 0 0"/>
+            Margin="40 10 0 0"
+            Command="{Binding ShowATMStateCommand}"/>
 
         <Button
             Grid.Row="4"

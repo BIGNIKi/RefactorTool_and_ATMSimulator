@@ -5,11 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestTaskCadwise2"
         xmlns:views="clr-namespace:TestTaskCadwise2.Views"
+        xmlns:vms="clr-namespace:TestTaskCadwise2.ViewModels"
         mc:Ignorable="d"
         Title="ATM simulator" Height="450" Width="800"
         ResizeMode="CanMinimize"
         FontSize="14">
     <Grid Margin="20 10 0 0">
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:MainAtmMenuViewModel}">
+                <views:MainAtmMenuView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ATMStateViewModel}">
+                <views:ATMStateView/>
+            </DataTemplate>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -19,9 +29,9 @@
             Content="{DynamicResource m_Title}"
             FontSize="24"
             Grid.Row="0"/>
-        
-        <views:MainAtmMenuView
+
+        <ContentControl 
             Grid.Row="1"
-            DataContext="{Binding CurrentViewModel}"/>
+            Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

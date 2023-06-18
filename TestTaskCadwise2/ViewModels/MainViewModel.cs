@@ -1,12 +1,19 @@
-﻿namespace TestTaskCadwise2.ViewModels
+﻿using TestTaskCadwise2.Models;
+
+namespace TestTaskCadwise2.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; set; }
+        public ViewModelBase CurrentViewModel => NavigationState.CurrentViewModel;
 
-        public MainViewModel()
+        public MainViewModel( NavigationState navigationState ) : base(navigationState)
         {
-            CurrentViewModel = new MainAtmMenuViewModel();
+            NavigationState.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }
