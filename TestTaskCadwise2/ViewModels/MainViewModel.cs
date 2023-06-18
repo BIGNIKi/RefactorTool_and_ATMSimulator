@@ -20,10 +20,10 @@ namespace TestTaskCadwise2.ViewModels
             _banknotes = new List<BanknoteInfo>()
             {
                 new BanknoteInfo(10, ATMCapacity, 0),
-                new BanknoteInfo(50, ATMCapacity, 2000),
+                new BanknoteInfo(50, ATMCapacity, 0),
                 new BanknoteInfo(100, ATMCapacity, 0),
                 new BanknoteInfo(500, ATMCapacity, 0),
-                new BanknoteInfo(1000, ATMCapacity, 1999),
+                new BanknoteInfo(1000, ATMCapacity, 0),
                 new BanknoteInfo(5000, ATMCapacity, 0)
             };
 

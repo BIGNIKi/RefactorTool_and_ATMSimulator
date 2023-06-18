@@ -45,7 +45,8 @@
         <ItemsControl 
             Grid.Row="3" 
             ItemsSource="{Binding BanknotesSelectorInfo}"
-            Margin="20 5 0 0">
+            Margin="20 5 0 0"
+            x:Name="_this">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -67,7 +68,9 @@
                             Height="20"
                             HorizontalContentAlignment="Center"
                             Padding="0 -2 0 0"
-                            IsEnabled="{Binding IsMinusEnabled}"/>
+                            IsEnabled="{Binding IsMinusEnabled}"
+                            Command="{Binding ElementName=_this, Path=DataContext.SettingBanknoteCommand}"
+                            CommandParameter="{Binding OrderReverseInCollection}"/>
                         <Label
                             Content="{Binding Count}"
                             Grid.Column="2"/>
@@ -78,7 +81,9 @@
                             Height="20"
                             HorizontalContentAlignment="Center"
                             Padding="0 -2 0 0"
-                            IsEnabled="{Binding IsPlusEnabled}"/>
+                            IsEnabled="{Binding IsPlusEnabled}"
+                            Command="{Binding ElementName=_this, Path=DataContext.SettingBanknoteCommand}"
+                            CommandParameter="{Binding OrderInCollection}"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

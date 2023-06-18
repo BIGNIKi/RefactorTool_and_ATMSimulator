@@ -13,6 +13,10 @@
             }
         }
 
+        public int OrderInCollection { get; }
+
+        public int OrderReverseInCollection { get => OrderInCollection * -1; }
+
         public int Capacity { get; } // вместимость банкомата
 
         private int _count;
@@ -60,7 +64,7 @@
             }
         }
 
-        public DepositeBanknoteInfo( int banknote, int capacity, int countINATM )
+        public DepositeBanknoteInfo( int banknote, int capacity, int countINATM, int orderNum )
         {
             BanknoteValue = banknote;
             Banknote = Banknote = banknote.ToString() + " ₽";
@@ -69,6 +73,7 @@
             CountNowInATM = countINATM;
             IsMinusEnabled = false;
             IsPlusEnabled = false;
+            OrderInCollection = orderNum;
         }
     }
 }

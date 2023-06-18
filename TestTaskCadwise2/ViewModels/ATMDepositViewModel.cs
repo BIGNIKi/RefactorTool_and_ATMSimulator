@@ -77,6 +77,8 @@ namespace TestTaskCadwise2.ViewModels
 
         public ICommand BackToMainMenuCommand { get; }
 
+        public ICommand SettingBanknoteCommand { get; }
+
         private MainAtmMenuViewModel CreateMainAtmMenuViewModel()
         {
             return new MainAtmMenuViewModel(NavigationState, AppResources);
@@ -84,9 +86,11 @@ namespace TestTaskCadwise2.ViewModels
 
         public void InitBanknotesSelectorInfo( List<BanknoteInfo> banknotes )
         {
+            int i = 1;
             foreach(var item in banknotes)
             {
-                DepositeBanknoteInfo @new = new(item.BanknoteValue, item.Capacity, item.Count);
+                DepositeBanknoteInfo @new = new(item.BanknoteValue, item.Capacity, item.Count, i);
+                i++;
                 BanknotesSelectorInfo.Add(@new);
             }
         }
@@ -98,6 +102,7 @@ namespace TestTaskCadwise2.ViewModels
             _countOfMoneyStr = AppResources["m_InputDepositInfo"].ToString();
 
             BackToMainMenuCommand = new NavigationCommand(this, CreateMainAtmMenuViewModel);
+            SettingBanknoteCommand = new SettingBanknoteCommand(this);
         }
     }
 }
