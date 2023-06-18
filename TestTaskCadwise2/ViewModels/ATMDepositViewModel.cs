@@ -73,9 +73,22 @@ namespace TestTaskCadwise2.ViewModels
             }
         }
 
+        private List<BanknoteInfo>? _banknotesInfo = null;
+
+        public List<BanknoteInfo>? BanknotesInfo {
+            get => _banknotesInfo;
+            set
+            {
+                if(_banknotesInfo == null)
+                    _banknotesInfo = value;
+            }
+        }
+
         public ObservableCollection<DepositeBanknoteInfo> BanknotesSelectorInfo { get; } = new();
 
         public ICommand BackToMainMenuCommand { get; }
+
+        public ICommand DepositMoneyCommand { get; }
 
         public ICommand SettingBanknoteCommand { get; }
 
@@ -84,10 +97,21 @@ namespace TestTaskCadwise2.ViewModels
             return new MainAtmMenuViewModel(NavigationState, AppResources);
         }
 
-        public void InitBanknotesSelectorInfo( List<BanknoteInfo> banknotes )
+        private MainAtmMenuViewModel CreateMainAtmMenuViewModelAndDeposit()
         {
+            for(int i = 0; i < BanknotesSelectorInfo.Count; i++)
+            {
+                BanknotesInfo[i].Count += BanknotesSelectorInfo[i].Count;
+            }
+
+            return new MainAtmMenuViewModel(NavigationState, AppResources);
+        }
+
+        public void InitBanknotesSelectorInfo( List<BanknoteInfo> banknotesInfo )
+        {
+            BanknotesInfo = banknotesInfo;
             int i = 1;
-            foreach(var item in banknotes)
+            foreach(var item in BanknotesInfo)
             {
                 DepositeBanknoteInfo @new = new(item.BanknoteValue, item.Capacity, item.Count, i);
                 i++;
@@ -95,7 +119,7 @@ namespace TestTaskCadwise2.ViewModels
             }
         }
 
-        public ATMDepositViewModel( NavigationState navigationState, ResourceDictionary appResources ) : base(navigationState)
+        public ATMDepositViewModel( NavigationState navigationState, ResourceDictionary appResources) : base(navigationState)
         {
             _isDepositBtnEnabled = false;
             AppResources = appResources;
@@ -103,6 +127,7 @@ namespace TestTaskCadwise2.ViewModels
 
             BackToMainMenuCommand = new NavigationCommand(this, CreateMainAtmMenuViewModel);
             SettingBanknoteCommand = new SettingBanknoteCommand(this);
+            DepositMoneyCommand = new NavigationCommand(this, CreateMainAtmMenuViewModelAndDeposit);
         }
     }
 }

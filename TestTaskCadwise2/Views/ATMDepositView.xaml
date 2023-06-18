@@ -101,7 +101,7 @@
             <Button
                 Grid.Column="0"
                 Content="{DynamicResource m_Deposit}"
-                Command="{Binding BackToMainMenuCommand}"
+                Command="{Binding DepositMoneyCommand}"
                 IsEnabled="{Binding IsDepositBtnEnabled}"/>
 
             <Button
