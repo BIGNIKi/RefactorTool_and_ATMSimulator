@@ -1,4 +1,6 @@
-﻿namespace TestTaskCadwise2.Models
+﻿using System;
+
+namespace TestTaskCadwise2.Models
 {
     public class DepositeBanknoteInfo : ModelBase
     {
@@ -27,6 +29,10 @@
             set
             {
                 _count = value;
+                if (_count + CountNowInATM > Capacity || _count < 0)
+                {
+                    throw new ArgumentException("Count of banknote can't be more than capacity");
+                }
                 OnPropertyChanged(nameof(Count));
             }
         }

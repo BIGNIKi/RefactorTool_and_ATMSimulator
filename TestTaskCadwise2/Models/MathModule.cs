@@ -60,7 +60,7 @@ namespace TestTaskCadwise2.Models
                     for(int j = i - 1; j >= 0; j--)
                     {
                         int countOfBanknotes = needDistribute / banknotesSelectorInfo[j].BanknoteValue;
-                        if(countOfBanknotes + banknotesSelectorInfo[j].CountNowInATM <= banknotesSelectorInfo[j].Capacity)
+                        if(countOfBanknotes + banknotesSelectorInfo[j].Count + banknotesSelectorInfo[j].CountNowInATM <= banknotesSelectorInfo[j].Capacity)
                         {
                             banknotesSelectorInfo[i].IsMinusEnabled = true;
                             break;
@@ -68,7 +68,7 @@ namespace TestTaskCadwise2.Models
                         else
                         {
                             // часть денег можно занять купюрой меньшего достоинства
-                            needDistribute -= (banknotesSelectorInfo[j].Capacity - banknotesSelectorInfo[j].CountNowInATM) * banknotesSelectorInfo[j].BanknoteValue;
+                            needDistribute -= (banknotesSelectorInfo[j].Capacity - banknotesSelectorInfo[j].CountNowInATM - banknotesSelectorInfo[j].Count) * banknotesSelectorInfo[j].BanknoteValue;
                         }
                     }
 
@@ -134,7 +134,7 @@ namespace TestTaskCadwise2.Models
                 for(int j = orderBtnId - 1; j >= 0; j--)
                 {
                     int countOfBanknotes = needDistribute / banknotesSelectorInfo[j].BanknoteValue;
-                    if(countOfBanknotes + banknotesSelectorInfo[j].CountNowInATM <= banknotesSelectorInfo[j].Capacity)
+                    if(countOfBanknotes + banknotesSelectorInfo[j].Count + banknotesSelectorInfo[j].CountNowInATM <= banknotesSelectorInfo[j].Capacity)
                     {
                         banknotesSelectorInfo[j].Count += countOfBanknotes;
                         banknotesSelectorInfo[orderBtnId].Count--;
@@ -144,9 +144,9 @@ namespace TestTaskCadwise2.Models
                     }
                     else
                     {
-                        banknotesSelectorInfo[j].Count += banknotesSelectorInfo[j].Capacity - banknotesSelectorInfo[j].CountNowInATM;
                         // часть денег можно занять купюрой меньшего достоинства
-                        needDistribute -= (banknotesSelectorInfo[j].Capacity - banknotesSelectorInfo[j].CountNowInATM) * banknotesSelectorInfo[j].BanknoteValue;
+                        needDistribute -= (banknotesSelectorInfo[j].Capacity - banknotesSelectorInfo[j].CountNowInATM - banknotesSelectorInfo[j].Count) * banknotesSelectorInfo[j].BanknoteValue;
+                        banknotesSelectorInfo[j].Count += banknotesSelectorInfo[j].Capacity - banknotesSelectorInfo[j].CountNowInATM - banknotesSelectorInfo[j].Count;
                     }
                 }
                 if(!isMinusDone)

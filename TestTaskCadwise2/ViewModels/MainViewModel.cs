@@ -19,12 +19,12 @@ namespace TestTaskCadwise2.ViewModels
 
             _banknotes = new List<BanknoteInfo>()
             {
-                new BanknoteInfo(10, ATMCapacity, 0),
-                new BanknoteInfo(50, ATMCapacity, 0),
-                new BanknoteInfo(100, ATMCapacity, 0),
-                new BanknoteInfo(500, ATMCapacity, 0),
-                new BanknoteInfo(1000, ATMCapacity, 0),
-                new BanknoteInfo(5000, ATMCapacity, 0)
+                new BanknoteInfo(10, ATMCapacity, 1990),
+                new BanknoteInfo(50, ATMCapacity, 1990),
+                new BanknoteInfo(100, ATMCapacity, 1990),
+                new BanknoteInfo(500, ATMCapacity, 1990),
+                new BanknoteInfo(1000, ATMCapacity, 1990),
+                new BanknoteInfo(5000, ATMCapacity, 1990)
             };
 
             NavigationState.CurrentViewModel = new MainAtmMenuViewModel(NavigationState, _appResources);
