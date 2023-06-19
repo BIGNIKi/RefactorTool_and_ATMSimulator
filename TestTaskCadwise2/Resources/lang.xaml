@@ -11,16 +11,20 @@
 
     <!-- User control ATMStateView -->
     <v:String x:Key="m_StateLabel">ATM state</v:String>
-    <v:String x:Key="m_BalanceInfo">Account balance:</v:String>
+    <v:String x:Key="m_BalanceInfo">User balance:</v:String>
     <v:String x:Key="m_AvailableBanknotes">Available banknotes:</v:String>
 
     <!-- User control ATMStateView -->
     <v:String x:Key="m_DepositInfo">Deposit</v:String>
-    <v:String x:Key="m_DepositInfoSum">Enter a multiple of 10 ₽ and no more than 150000 ₽</v:String>
     <v:String x:Key="m_InputDepositInfo">input field</v:String>
     <v:String x:Key="m_Deposit">Deposit</v:String>
 
+    <!-- User control ATMCashWithdrawalView -->
+    <v:String x:Key="m_WithdrawalInfo">Cash withdrawal</v:String>
+    <v:String x:Key="m_Withdraw">Withdraw cash</v:String>
+
     <!-- Shared -->
     <v:String x:Key="m_back">Back</v:String>
+    <v:String x:Key="m_InfoSum">Enter a multiple of 10 ₽ and no more than 150000 ₽</v:String>
 
 </ResourceDictionary>

@@ -8,18 +8,22 @@ using TestTaskCadwise2.Models;
 
 namespace TestTaskCadwise2.ViewModels
 {
-    public class ATMDepositViewModel : ViewModelBase
+    public class ATMCashWithdrawalViewModel : ViewModelBase
     {
         public ResourceDictionary AppResources { get; }
+
+        public ObservableCollection<SettingBanknoteInfo> BanknotesSelectorInfo { get; } = new();
 
         private string _countOfMoneyStr;
 
         public string CountOfMoneyStr
         {
-            get { 
+            get
+            {
                 return _countOfMoneyStr;
-            } 
-            set {
+            }
+            set
+            {
                 try
                 {
                     int sum = 0;
@@ -39,11 +43,15 @@ namespace TestTaskCadwise2.ViewModels
                     {
                         throw new ArgumentException("Must be less than 150000");
                     }
+                    else if(sum > UsersData.MoneyCount)
+                    {
+                        throw new ArgumentException("User hasn't enough money");
+                    }
 
-                    var success = DepositSettingModule.CalculateCountOfBanknotesDeposit(sum, BanknotesSelectorInfo);
+                    var success = CashWithdrawalSettingModule.CalculateCountOfBanknotesCashWithdrawal(sum, BanknotesSelectorInfo);
                     if(!success)
                         throw new ArgumentException("Not enough banknotes");
-                    IsDepositBtnEnabled = true;
+                    IsCashWithdrawalBtnEnabled = true;
 
                     _countOfMoneyStr = value;
                     OnPropertyChanged(nameof(CountOfMoneyStr));
@@ -51,7 +59,7 @@ namespace TestTaskCadwise2.ViewModels
                 catch(ArgumentException)
                 {
                     DepositSettingModule.ResetBtns(BanknotesSelectorInfo);
-                    IsDepositBtnEnabled = false;
+                    IsCashWithdrawalBtnEnabled = false;
                     _countOfMoneyStr = value;
                     OnPropertyChanged(nameof(CountOfMoneyStr));
                     throw;
@@ -59,24 +67,25 @@ namespace TestTaskCadwise2.ViewModels
             }
         }
 
-        private bool _isDepositBtnEnabled;
+        private bool _isCashWithdrawalBtnEnabled;
 
-        public bool IsDepositBtnEnabled
+        public bool IsCashWithdrawalBtnEnabled
         {
             get
             {
-                return _isDepositBtnEnabled;
+                return _isCashWithdrawalBtnEnabled;
             }
             set
             {
-                _isDepositBtnEnabled = value;
-                OnPropertyChanged(nameof(IsDepositBtnEnabled));
+                _isCashWithdrawalBtnEnabled = value;
+                OnPropertyChanged(nameof(IsCashWithdrawalBtnEnabled));
             }
         }
 
         private List<BanknoteInfo>? _banknotesInfo = null;
 
-        public List<BanknoteInfo>? BanknotesInfo {
+        public List<BanknoteInfo>? BanknotesInfo
+        {
             get => _banknotesInfo;
             set
             {
@@ -84,8 +93,6 @@ namespace TestTaskCadwise2.ViewModels
                     _banknotesInfo = value;
             }
         }
-
-        public ObservableCollection<SettingBanknoteInfo> BanknotesSelectorInfo { get; } = new();
 
         private UsersData? _userData = null;
 
@@ -105,28 +112,8 @@ namespace TestTaskCadwise2.ViewModels
         }
 
         public ICommand BackToMainMenuCommand { get; }
-
-        public ICommand DepositMoneyCommand { get; }
-
+        public ICommand CashWithdrawalCommand { get; }
         public ICommand SettingBanknoteCommand { get; }
-
-        private MainAtmMenuViewModel CreateMainAtmMenuViewModel()
-        {
-            return new MainAtmMenuViewModel(NavigationState, AppResources);
-        }
-
-        private MainAtmMenuViewModel CreateMainAtmMenuViewModelAndDeposit()
-        {
-            int newMoney = 0;
-            for(int i = 0; i < BanknotesSelectorInfo.Count; i++)
-            {
-                BanknotesInfo[i].Count += BanknotesSelectorInfo[i].Count;
-                newMoney += BanknotesSelectorInfo[i].Count * BanknotesSelectorInfo[i].BanknoteValue;
-            }
-            UsersData.MoneyCount += newMoney;
-
-            return new MainAtmMenuViewModel(NavigationState, AppResources);
-        }
 
         public void InitBanknotesSelectorInfo( List<BanknoteInfo> banknotesInfo )
         {
@@ -140,15 +127,31 @@ namespace TestTaskCadwise2.ViewModels
             }
         }
 
-        public ATMDepositViewModel( NavigationState navigationState, ResourceDictionary appResources) : base(navigationState)
+        private MainAtmMenuViewModel CreateMainAtmMenuViewModel()
         {
-            _isDepositBtnEnabled = false;
+            return new MainAtmMenuViewModel(NavigationState, AppResources);
+        }
+
+        private MainAtmMenuViewModel CreateMainAtmMenuViewModelAndCashWithdrawal()
+        {
+            int takenMoney = 0;
+            for(int i = 0; i < BanknotesSelectorInfo.Count; i++)
+            {
+                BanknotesInfo[i].Count -= BanknotesSelectorInfo[i].Count;
+                takenMoney += BanknotesSelectorInfo[i].Count * BanknotesSelectorInfo[i].BanknoteValue;
+            }
+            UsersData.MoneyCount -= takenMoney;
+
+            return new MainAtmMenuViewModel(NavigationState, AppResources);
+        }
+
+        public ATMCashWithdrawalViewModel( NavigationState navigationState, ResourceDictionary appResources ) : base(navigationState)
+        {
             AppResources = appResources;
             _countOfMoneyStr = AppResources["m_InputDepositInfo"].ToString();
-
+            SettingBanknoteCommand = new SettingBanknoteCommand(BanknotesSelectorInfo, CashWithdrawalSettingModule.SettingUpBanknoteCountWithdrawal);
             BackToMainMenuCommand = new NavigationCommand(this, CreateMainAtmMenuViewModel);
-            SettingBanknoteCommand = new SettingBanknoteCommand(BanknotesSelectorInfo, DepositSettingModule.SettingUpBanknoteCountDeposit);
-            DepositMoneyCommand = new NavigationCommand(this, CreateMainAtmMenuViewModelAndDeposit);
+            CashWithdrawalCommand = new NavigationCommand(this, CreateMainAtmMenuViewModelAndCashWithdrawal);
         }
     }
 }

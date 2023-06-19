@@ -2,7 +2,7 @@
 
 namespace TestTaskCadwise2.Models
 {
-    public class DepositeBanknoteInfo : ModelBase
+    public class SettingBanknoteInfo : ModelBase
     {
         public int BanknoteValue { get; }
 
@@ -29,9 +29,9 @@ namespace TestTaskCadwise2.Models
             set
             {
                 _count = value;
-                if (_count + CountNowInATM > Capacity || _count < 0)
+                if (_count < 0)
                 {
-                    throw new ArgumentException("Count of banknote can't be more than capacity");
+                    throw new ArgumentException("Count can't be lenn than zero");
                 }
                 OnPropertyChanged(nameof(Count));
             }
@@ -70,7 +70,7 @@ namespace TestTaskCadwise2.Models
             }
         }
 
-        public DepositeBanknoteInfo( int banknote, int capacity, int countINATM, int orderNum )
+        public SettingBanknoteInfo( int banknote, int capacity, int countINATM, int orderNum )
         {
             BanknoteValue = banknote;
             Banknote = Banknote = banknote.ToString() + " ₽";

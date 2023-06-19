@@ -12,6 +12,7 @@ namespace TestTaskCadwise2.ViewModels
         public ICommand ChangeLanguageCommand { get; }
         public ICommand ShowATMStateCommand { get; }
         public ICommand ShowATMDepositCommand { get; }
+        public ICommand ShowATMCashWithdrawalCommand { get; }
 
         private ATMStateViewModel CreateATMStateViewModel()
         {
@@ -23,12 +24,18 @@ namespace TestTaskCadwise2.ViewModels
             return new ATMDepositViewModel(NavigationState, AppResources);
         }
 
+        private ATMCashWithdrawalViewModel CreateATMCashWithdrawalViewModel()
+        {
+            return new ATMCashWithdrawalViewModel(NavigationState, AppResources);
+        }
+
         public MainAtmMenuViewModel( NavigationState navigationState, ResourceDictionary appResources ) : base(navigationState)
         {
             AppResources = appResources;
             ChangeLanguageCommand = new ChangeLanguageCommand(this);
             ShowATMStateCommand = new NavigationCommand(this, CreateATMStateViewModel);
             ShowATMDepositCommand = new NavigationCommand(this, CreateATMDepositViewModel);
+            ShowATMCashWithdrawalCommand = new NavigationCommand(this, CreateATMCashWithdrawalViewModel);
         }
     }
 }

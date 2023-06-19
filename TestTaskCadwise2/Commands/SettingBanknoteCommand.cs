@@ -1,21 +1,25 @@
-﻿using TestTaskCadwise2.Models;
-using TestTaskCadwise2.ViewModels;
+﻿using System;
+using System.Collections.ObjectModel;
+using TestTaskCadwise2.Models;
 
 namespace TestTaskCadwise2.Commands
 {
     public class SettingBanknoteCommand : CommandBase
     {
-        private readonly ATMDepositViewModel _viewModel;
+        private readonly ObservableCollection<SettingBanknoteInfo> _banknotesSelectorInfo;
+
+        private readonly Action<ObservableCollection<SettingBanknoteInfo>, int> _settingLogic;
 
         public override void Execute( object? parameter )
         {
             int orderId = (int)parameter;
-            MathModule.SettingUpBanknoteCount(_viewModel.BanknotesSelectorInfo, orderId);
+            _settingLogic(_banknotesSelectorInfo, orderId);
         }
 
-        public SettingBanknoteCommand( ATMDepositViewModel viewModel )
+        public SettingBanknoteCommand( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo, Action<ObservableCollection<SettingBanknoteInfo>, int> settingLogic)
         {
-            _viewModel = viewModel;
+            _banknotesSelectorInfo = banknotesSelectorInfo;
+            _settingLogic = settingLogic;
         }
     }
 }

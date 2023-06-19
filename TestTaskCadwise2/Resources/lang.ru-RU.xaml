@@ -5,22 +5,26 @@
     <v:String x:Key="m_Title">ATM simulator</v:String>
     <v:String x:Key="m_InfoText">Выберите тип операции:</v:String>
     <v:String x:Key="m_GetCashBtn">Получение наличных</v:String>
-    <v:String x:Key="m_DepositBtn">Внесенеие наличных</v:String>
+    <v:String x:Key="m_DepositBtn">Внесение наличных</v:String>
     <v:String x:Key="m_StateBtn">Состояние банкомата</v:String>
     <v:String x:Key="m_ChangeLanguageBtn">Изменить язык</v:String>
 
     <!-- User control ATMStateView -->
     <v:String x:Key="m_StateLabel">Отображение состояния</v:String>
-    <v:String x:Key="m_BalanceInfo">Баланс:</v:String>
+    <v:String x:Key="m_BalanceInfo">Баланс пользователя:</v:String>
     <v:String x:Key="m_AvailableBanknotes">Доступыне купюры:</v:String>
-    
+
     <!-- User control ATMStateView -->
     <v:String x:Key="m_DepositInfo">Внесение наличных</v:String>
-    <v:String x:Key="m_DepositInfoSum">Введите сумму кратную 10 ₽ и не более 150000 ₽</v:String>
     <v:String x:Key="m_InputDepositInfo">поле для ввода</v:String>
     <v:String x:Key="m_Deposit">Внести</v:String>
 
+    <!-- User control ATMCashWithdrawalView -->
+    <v:String x:Key="m_WithdrawalInfo">Снятие наличных</v:String>
+    <v:String x:Key="m_Withdraw">Снять наличные</v:String>
+
     <!-- Shared -->
     <v:String x:Key="m_back">Назад</v:String>
+    <v:String x:Key="m_InfoSum">Введите сумму кратную 10 ₽ и не более 150000 ₽</v:String>
 
 </ResourceDictionary>

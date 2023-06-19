@@ -12,6 +12,35 @@ namespace TestTaskCadwise2.ViewModels
 
         public List<BanknoteInfo> Banknotes { get; set; }
 
+        private UsersData? _userData = null;
+
+        public UsersData? UsersData
+        {
+            get
+            {
+                return _userData;
+            }
+            set
+            {
+                if(_userData == null)
+                {
+                    _userData = value;
+                    OnPropertyChanged(nameof(UsersData));
+                }
+            }
+        }
+
+        public string UsersMoneyInfo
+        {
+            get
+            {
+                if(_userData == null)
+                    return " 0 ₽";
+
+                return $" {UsersData.MoneyCount} ₽";
+            }
+        }
+
         public ICommand BackToMainMenuCommand { get; }
 
         private MainAtmMenuViewModel CreateMainAtmMenuViewModel()

@@ -32,7 +32,7 @@
                 />
 
             <Label
-                Content="100 ₽"
+                Content="{Binding UsersMoneyInfo}"
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 Margin="-6 0 0 0"/>

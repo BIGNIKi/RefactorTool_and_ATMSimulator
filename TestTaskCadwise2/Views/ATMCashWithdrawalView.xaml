@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TestTaskCadwise2.Views.ATMDepositView"
+﻿<UserControl x:Class="TestTaskCadwise2.Views.ATMCashWithdrawalView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <Label
-            Content="{DynamicResource m_DepositInfo}"
+            Content="{DynamicResource m_WithdrawalInfo}"
             Grid.Row="0"
             Margin="20 10 0 0 "/>
 
@@ -100,9 +100,9 @@
 
             <Button
                 Grid.Column="0"
-                Content="{DynamicResource m_Deposit}"
-                Command="{Binding DepositMoneyCommand}"
-                IsEnabled="{Binding IsDepositBtnEnabled}"/>
+                Content="{DynamicResource m_Withdraw}"
+                Command="{Binding CashWithdrawalCommand}"
+                IsEnabled="{Binding IsCashWithdrawalBtnEnabled}"/>
 
             <Button
                 Grid.Column="1"
