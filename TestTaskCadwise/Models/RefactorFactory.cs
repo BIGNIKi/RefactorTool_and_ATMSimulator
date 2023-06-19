@@ -78,7 +78,17 @@ namespace TestTaskCadwise1.Models
                             {
                                 CheckWordLength();
                             }
-                            writeBuffer.Append(readBuffer[i]);
+                            try
+                            {
+                                writeBuffer.Append(readBuffer[i]);
+                            }
+                            catch(OutOfMemoryException e)
+                            {
+                                writeBuffer.Clear();
+                                GC.Collect();
+                                MessageBox.Show(e.Message, "Memory error. Perhaps reason is too big word.", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
                         }
                         if(wordStartIndex == -1 || isCorrectButLongWord)
                         {
