@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using TestTaskCadwise1.Commands;
 
 namespace TestTaskCadwise1.Models
 {
@@ -56,8 +57,8 @@ namespace TestTaskCadwise1.Models
 
         private async Task DoRefactorAsync( RefactorParams refactorParams )
         {
-            var refactorUnit = new RefactorUnit(refactorParams);
-            await Task.Run(() => refactorUnit.DoRefactor());
+            var refactorIO = new RefactorIO(refactorParams);
+            await Task.Run(() => refactorIO.DoRefactor());
 
             CountOfElemInProgress--;
             _isInProcess = false;

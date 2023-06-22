@@ -1,138 +1,34 @@
-﻿using System.IO;
-using System.Windows;
-using System;
-using System.Text;
+﻿using System.Text;
 
 namespace TestTaskCadwise1.Models
 {
     public class RefactorUnit
     {
-        private const int BufferSize = 1024;
+        private bool _shouldDeletePuncMarks;
 
-        private readonly RefactorParams _refactorParams;
+        private int _lengthWordsToDelete;
 
         private int _wordLength;
+
+        public int WordLength
+        {
+            get => _wordLength;
+
+            set => _wordLength = value;
+        }
+
         private bool _isCorrectLength;
 
-
-        public void DoRefactor()
+        public bool IsCorrectLength
         {
-            try
-            {
-                using(StreamReader reader = new(_refactorParams.FilePathFrom))
-                using(StreamReader readerBack = new(_refactorParams.FilePathFrom))
-                using(StreamWriter writer = new(_refactorParams.FilePathTo))
-                {
-                    ResetWordLengthCheckParams();
+            get => _isCorrectLength;
 
-                    int numRead;
-                    char[] readBuffer = new char[BufferSize];
-                    while((numRead = reader.ReadBlock(readBuffer, 0, readBuffer.Length)) > 0)
-                    {
-                        var refactoredStrBuilder = RefactorTextBlock(readBuffer, numRead);
-                        writer.Write(refactoredStrBuilder);
-                        if(_wordLength > 0)
-                        {
-                            SkipNSymbolsInStreamReader(readerBack, numRead - _wordLength);
-                            IfWordReadToTheEndAndWrite(reader, readerBack, writer);
-                        }
-                        else
-                        {
-                            SkipNSymbolsInStreamReader(readerBack, numRead);
-                        }
-                    }
-                }
-            }
-            catch(IOException e)
-            {
-                MessageBox.Show("File IO error", e.Message, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch(Exception)
-            {
-                throw;
-            }
+            set => _isCorrectLength = value;
         }
 
-        private void SkipNSymbolsInStreamReader( StreamReader reader, int n )
+        public StringBuilder RefactorTextBlock( char[] readBuffer, int countOfSymbols )
         {
-            for(int i = 0; i < n; i++)
-            {
-                reader.Read();
-            }
-        }
-
-        private void IfWordReadToTheEndAndWrite( StreamReader reader, StreamReader readerBack, StreamWriter writer )
-        {
-            if(_isCorrectLength) // точно знаем, что слово корректно по длине для записи в файл, но оно выходит за считанный буфер
-            {
-                SkipNSymbolsInStreamReader(readerBack, _wordLength);
-                // readerBack и reader сейчас смотрят на одну и ту же букву данного, признанного корректным, слова
-                WriteCorrectLengthWord();
-            }
-            else // не знаем, корректна ли длина + слово выходит за считанный буфер
-            {
-                // readerBack сейчас смотрит на первый символ слова
-                CheckIfWordCorrect(reader);
-                if(_isCorrectLength) // если слово признано корректным, значит оно еще не дочитано reader'ом до конца
-                {
-                    for(int i = 0; i < _wordLength; i++)
-                    {
-                        writer.Write((char)readerBack.Read());
-                    }
-                    // readerBack и reader сейчас смотрят на одну и ту же букву данного, признанного корректным, слова
-                    WriteCorrectLengthWord();
-                }
-                else // если слово признано некорректным для записи, reader дошел до конца слова
-                {
-                    SkipNSymbolsInStreamReader(readerBack, _wordLength); // делаю так, чтобы reader и readerBack указывали в одно место
-                }
-            }
-
-            ResetWordLengthCheckParams();
-
-            void WriteCorrectLengthWord()
-            {
-                int checkedSym;
-                while((checkedSym = reader.Peek()) >= 0)
-                {
-                    if(char.IsLetter((char)checkedSym) || char.IsDigit((char)checkedSym))
-                    {
-                        var sym = (char)reader.Read();
-                        readerBack.Read();
-                        writer.Write(sym);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-
-        private void CheckIfWordCorrect( StreamReader reader )
-        {
-            int checkedSym;
-            while((checkedSym = reader.Peek()) >= 0)
-            {
-                if(char.IsLetter((char)checkedSym) || char.IsDigit((char)checkedSym))
-                {
-                    reader.Read();
-                    _wordLength++;
-                    if(_wordLength >= _refactorParams.LengthWordsToDelete)
-                    {
-                        _isCorrectLength = true;
-                        break;
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
-        }
-
-        private StringBuilder RefactorTextBlock( char[] readBuffer, int countOfSymbols )
-        {
+            _wordLength = -1;
             int wordStartIndexInWriteBuffer = -1;
             var writeBuffer = new StringBuilder();
             for(int i = 0; i < countOfSymbols; i++)
@@ -140,7 +36,7 @@ namespace TestTaskCadwise1.Models
                 if(char.IsPunctuation(readBuffer[i]))
                 {
                     CheckWordLength();
-                    if(_refactorParams.ShouldDeletePuncMarks)
+                    if(_shouldDeletePuncMarks)
                     {
                         continue;
                     }
@@ -153,7 +49,7 @@ namespace TestTaskCadwise1.Models
                         _wordLength = 0;
                     }
                     _wordLength++;
-                    if(_wordLength >= _refactorParams.LengthWordsToDelete) // can write to file
+                    if(_wordLength >= _lengthWordsToDelete) // can write to file
                     {
                         _isCorrectLength = true;
                     }
@@ -183,15 +79,17 @@ namespace TestTaskCadwise1.Models
             }
         }
 
-        private void ResetWordLengthCheckParams()
+        public void ResetWordLengthCheckParams()
         {
             _isCorrectLength = false;
             _wordLength = -1;
         }
 
-        public RefactorUnit( RefactorParams refactorParams )
+        public RefactorUnit( int lengthWordsToDelete, bool shouldDeletePuncMarks )
         {
-            _refactorParams = refactorParams;
+            _wordLength = -1;
+            _lengthWordsToDelete = lengthWordsToDelete;
+            _shouldDeletePuncMarks = shouldDeletePuncMarks;
         }
     }
 }
