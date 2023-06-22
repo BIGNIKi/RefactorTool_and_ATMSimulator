@@ -40,6 +40,7 @@ namespace TestTaskCadwise1.Commands
                 _refactorSetupViewModel.OpenedFileName,
                 _refactorSetupViewModel.ShouldDeletePuncMarks,
                 int.Parse(_refactorSetupViewModel.LengthWords));
+
             _refactorSetupViewModel.RefactorFactory.AddRefactorTask(refactorParams);
         }
     }
