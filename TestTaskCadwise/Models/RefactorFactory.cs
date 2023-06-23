@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using TestTaskCadwise1.Commands;
 
 namespace TestTaskCadwise1.Models
 {
@@ -24,26 +23,28 @@ namespace TestTaskCadwise1.Models
             }
         }
 
-        private Task? _task;
+        private Task _task;
 
         public void AddRefactorTask( RefactorParams refactorParams )
         {
             RefactorQueue.Enqueue(refactorParams);
             CountOfElemInProgress++;
-
-            _task ??= Task.Run(TryToStartNewRefactor)
-                    .ContinueWith(e => MessageBox.Show(e.Exception.Message, "Add refactor task exception", MessageBoxButton.OK, MessageBoxImage.Error),
-                    TaskContinuationOptions.OnlyOnFaulted);
         }
 
-        private void TryToStartNewRefactor()
+        private async Task TryToStartNewRefactor()
         {
-            while(RefactorQueue.Count != 0)
+            while(true)
             {
-                var @new = RefactorQueue.Dequeue();
-                DoRefactor(@new);
+                if(RefactorQueue.Count > 0)
+                {
+                    var @new = RefactorQueue.Dequeue();
+                    DoRefactor(@new);
+                }
+                else
+                {
+                    await Task.Delay(1000);
+                }
             }
-            _task = null;
         }
 
         private void DoRefactor( RefactorParams refactorParams )
@@ -57,6 +58,9 @@ namespace TestTaskCadwise1.Models
         public RefactorFactory()
         {
             RefactorQueue = new();
+            _task = Task.Run(TryToStartNewRefactor)
+                        .ContinueWith(e => MessageBox.Show(e.Exception.Message, "Add refactor task exception", MessageBoxButton.OK, MessageBoxImage.Error),
+                            TaskContinuationOptions.OnlyOnFaulted);
         }
     }
 }
