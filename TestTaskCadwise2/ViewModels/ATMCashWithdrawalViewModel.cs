@@ -149,7 +149,7 @@ namespace TestTaskCadwise2.ViewModels
         {
             AppResources = appResources;
             _countOfMoneyStr = AppResources["m_InputDepositInfo"].ToString();
-            SettingBanknoteCommand = new SettingBanknoteCommand(BanknotesSelectorInfo, CashWithdrawalSettingModule.SettingUpBanknoteCountWithdrawal);
+            SettingBanknoteCommand = new SettingBanknoteCommand(BanknotesSelectorInfo, CashWithdrawalSettingModule.ClickedBtn);
             BackToMainMenuCommand = new NavigationCommand(this, CreateMainAtmMenuViewModel);
             CashWithdrawalCommand = new NavigationCommand(this, CreateMainAtmMenuViewModelAndCashWithdrawal);
         }

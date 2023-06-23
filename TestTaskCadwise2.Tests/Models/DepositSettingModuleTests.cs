@@ -178,7 +178,8 @@ namespace TestTaskCadwise2.Tests.Models
                 new SettingBanknoteInfo(5000, ATMCapacity, 2000, 6){ Count = 0 }
             };
 
-            DepositSettingModule.SettingUpBanknoteCountDeposit(banknotesSelectorInfo, 2);
+            DepositSettingModule.SettingUpBtnDeposit(banknotesSelectorInfo);
+            DepositSettingModule.ClickedBtn(banknotesSelectorInfo, 2);
 
             Assert.True(banknotesSelectorInfo[0].Count == 0);
             Assert.True(banknotesSelectorInfo[1].Count == 2);
@@ -197,7 +198,8 @@ namespace TestTaskCadwise2.Tests.Models
                 new SettingBanknoteInfo(5000, ATMCapacity, 0, 6){ Count = 2000 } // нажал минус
             };
 
-            DepositSettingModule.SettingUpBanknoteCountDeposit(banknotesSelectorInfo, -6);
+            DepositSettingModule.SettingUpBtnDeposit(banknotesSelectorInfo);
+            DepositSettingModule.ClickedBtn(banknotesSelectorInfo, -6);
 
             Assert.True(banknotesSelectorInfo[5].Count == 1999);
             Assert.True(banknotesSelectorInfo[3].Count == 1990);
@@ -216,7 +218,8 @@ namespace TestTaskCadwise2.Tests.Models
                 new SettingBanknoteInfo(5000, ATMCapacity, 1, 6){ Count = 0 } // нажал плюс
             };
 
-            DepositSettingModule.SettingUpBanknoteCountDeposit(banknotesSelectorInfo, 6);
+            DepositSettingModule.SettingUpBtnDeposit(banknotesSelectorInfo);
+            DepositSettingModule.ClickedBtn(banknotesSelectorInfo, 6);
 
             Assert.True(banknotesSelectorInfo[5].Count == 1);
             Assert.True(banknotesSelectorInfo[0].Count == 100);

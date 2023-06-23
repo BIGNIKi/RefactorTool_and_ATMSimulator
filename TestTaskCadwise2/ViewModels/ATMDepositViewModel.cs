@@ -147,7 +147,7 @@ namespace TestTaskCadwise2.ViewModels
             _countOfMoneyStr = AppResources["m_InputDepositInfo"].ToString();
 
             BackToMainMenuCommand = new NavigationCommand(this, CreateMainAtmMenuViewModel);
-            SettingBanknoteCommand = new SettingBanknoteCommand(BanknotesSelectorInfo, DepositSettingModule.SettingUpBanknoteCountDeposit);
+            SettingBanknoteCommand = new SettingBanknoteCommand(BanknotesSelectorInfo, DepositSettingModule.ClickedBtn);
             DepositMoneyCommand = new NavigationCommand(this, CreateMainAtmMenuViewModelAndDeposit);
         }
     }

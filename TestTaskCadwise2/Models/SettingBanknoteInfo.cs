@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TestTaskCadwise2.Models
 {
@@ -54,6 +55,8 @@ namespace TestTaskCadwise2.Models
             }
         }
 
+        public Dictionary<int, int> MinusClickedData { get; set; }
+        public Dictionary<int, int> PlusClickedData { get; set; }
 
         private bool _isPlusEnabled;
 
