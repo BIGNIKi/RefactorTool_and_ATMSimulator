@@ -32,7 +32,7 @@ namespace TestTaskCadwise2.ViewModels
         public MainAtmMenuViewModel( NavigationState navigationState, ResourceDictionary appResources ) : base(navigationState)
         {
             AppResources = appResources;
-            ChangeLanguageCommand = new ChangeLanguageCommand(this);
+            ChangeLanguageCommand = new ChangeLanguageCommand();
             ShowATMStateCommand = new NavigationCommand(this, CreateATMStateViewModel);
             ShowATMDepositCommand = new NavigationCommand(this, CreateATMDepositViewModel);
             ShowATMCashWithdrawalCommand = new NavigationCommand(this, CreateATMCashWithdrawalViewModel);

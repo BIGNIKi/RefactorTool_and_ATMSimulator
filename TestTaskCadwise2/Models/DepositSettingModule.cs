@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace TestTaskCadwise2.Models
 {
     public static class DepositSettingModule
     {
         public static bool CalculateCountOfBanknotesDeposit( int sum,
-            ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo )
+            IList<SettingBanknoteInfo> banknotesSelectorInfo )
         {
             foreach(var item in banknotesSelectorInfo)
             {
@@ -48,7 +47,7 @@ namespace TestTaskCadwise2.Models
             }
         }
 
-        public static void ResetBtns( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo )
+        public static void ResetBtns( IList<SettingBanknoteInfo> banknotesSelectorInfo )
         {
             foreach(var item in banknotesSelectorInfo)
             {
@@ -57,7 +56,7 @@ namespace TestTaskCadwise2.Models
             }
         }
 
-        public static void SettingUpBtnDeposit( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo )
+        public static void SettingUpBtnDeposit( IList<SettingBanknoteInfo> banknotesSelectorInfo )
         {
             for(int i = banknotesSelectorInfo.Count - 1; i >= 0; i--)
             {
@@ -67,7 +66,7 @@ namespace TestTaskCadwise2.Models
             }
         }
 
-        private static void SettingUpMinusBtns( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
+        private static void SettingUpMinusBtns( IList<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
         {
             if(banknotesSelectorInfo[btnsId].Count > 0)
             {
@@ -117,7 +116,7 @@ namespace TestTaskCadwise2.Models
             }
         }
 
-        private static void SettingUpPlusBtns( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
+        private static void SettingUpPlusBtns( IList<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
         {
             var clickData = new Dictionary<int, int>();
             for(int j = btnsId + 1; j < banknotesSelectorInfo.Count; j++)
@@ -166,7 +165,7 @@ namespace TestTaskCadwise2.Models
             }
         }
 
-        public static void ClickedBtn( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
+        public static void ClickedBtn( IList<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
         {
             if(btnsId < 0) // pressed minus
             {

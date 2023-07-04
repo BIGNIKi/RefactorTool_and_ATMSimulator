@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace TestTaskCadwise2.Models
 {
@@ -8,7 +7,7 @@ namespace TestTaskCadwise2.Models
     {
         // расчитает возможно ли забрать деньги и если можно, то какими купюрами
         public static bool CalculateCountOfBanknotesCashWithdrawal( int sum,
-            ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo )
+            IList<SettingBanknoteInfo> banknotesSelectorInfo )
         {
             foreach(var item in banknotesSelectorInfo)
             {
@@ -53,7 +52,7 @@ namespace TestTaskCadwise2.Models
         /// Настройка состояния кнопок (вкл/выкл) с учетом возможности конвертации одних, уже выбранных, купюр в другие и наличия допольнительных купюр в банкомате
         /// </summary>
         /// <param name="banknotesSelectorInfo"></param>
-        public static void SettingUpBtnCashWithdrawal( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo )
+        public static void SettingUpBtnCashWithdrawal( IList<SettingBanknoteInfo> banknotesSelectorInfo )
         {
             for(int i = banknotesSelectorInfo.Count - 1; i >= 0; i--)
             {
@@ -63,7 +62,7 @@ namespace TestTaskCadwise2.Models
             }
         }
 
-        private static void SettingUpMinusBtns( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
+        private static void SettingUpMinusBtns( IList<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
         {
             if(banknotesSelectorInfo[btnsId].Count > 0)
             {
@@ -111,7 +110,7 @@ namespace TestTaskCadwise2.Models
             }
         }
 
-        private static void SettingUpPlusBtns( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
+        private static void SettingUpPlusBtns( IList<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
         {
             var clickData = new Dictionary<int, int>();
             clickData.Add(btnsId, 0);
@@ -160,7 +159,7 @@ namespace TestTaskCadwise2.Models
             }
         }
 
-        public static void ClickedBtn( ObservableCollection<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
+        public static void ClickedBtn( IList<SettingBanknoteInfo> banknotesSelectorInfo, int btnsId )
         {
             if(btnsId < 0) // pressed minus
             {
