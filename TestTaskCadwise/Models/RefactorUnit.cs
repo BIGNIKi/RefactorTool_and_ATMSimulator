@@ -12,7 +12,7 @@ namespace TestTaskCadwise1.Models
         {
             get;
 
-            private set;
+            set;
         }
 
         private bool _isCorrectLength;
@@ -21,7 +21,7 @@ namespace TestTaskCadwise1.Models
         {
             get => _isCorrectLength;
 
-            private set => _isCorrectLength = value;
+            set => _isCorrectLength = value;
         }
 
         public StringBuilder RefactorTextBlock( char[] readBuffer, int countOfSymbols )

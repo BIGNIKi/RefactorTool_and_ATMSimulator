@@ -9,7 +9,7 @@ namespace TestTaskCadwise1.ViewModels
 {
     internal class RefactorSetupViewModel : ViewModelBase, IFileSelectable, IRefactorData
     {
-        public ResourceDictionary AppResources { get; }
+        private ResourceDictionary AppResources { get; }
 
         private string _lengthWords;
 
@@ -66,7 +66,7 @@ namespace TestTaskCadwise1.ViewModels
             {
                 return _isfileSelected;
             }
-            set
+            private set
             {
                 _isfileSelected = value;
                 OnPropertyChanged(nameof(IsFileSelected));
@@ -121,7 +121,7 @@ namespace TestTaskCadwise1.ViewModels
         public ICommand ChooseFileBtn { get; }
         public ICommand DoRefactorBtn { get; }
 
-        private void onElemInQueueChanged( object? sender, PropertyChangedEventArgs e )
+        private void OnElemInQueueChanged( object? sender, PropertyChangedEventArgs e )
         {
             QueueInfo = RefactorFactory.CountOfElemInProgress.ToString();
         }
@@ -151,7 +151,7 @@ namespace TestTaskCadwise1.ViewModels
             RefactorFactory = new();
             ChooseFileBtn = new SelectFileCommand(this);
             DoRefactorBtn = new DoRefactorCommand(this);
-            RefactorFactory.PropertyChanged += onElemInQueueChanged;
+            RefactorFactory.PropertyChanged += OnElemInQueueChanged;
             QueueInfo = "0";
             SelectedFileName = "";
         }
