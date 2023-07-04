@@ -16,7 +16,7 @@ namespace TestTaskCadwise1.Models
             {
                 return _countOfElemInProgress;
             }
-            set
+            private set
             {
                 _countOfElemInProgress = value;
                 OnPropertyChanged(nameof(CountOfElemInProgress));

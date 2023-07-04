@@ -11,7 +11,7 @@ namespace TestTaskCadwise1.Models
         private readonly RefactorUnit _refUnit;
         private readonly RefactorParams _refParams;
 
-        private void SkipNSymbolsInStreamReader(StreamReader reader, int n)
+        private static void SkipNSymbolsInStreamReader(StreamReader reader, int n)
         {
             for (int i = 0; i < n; i++)
             {

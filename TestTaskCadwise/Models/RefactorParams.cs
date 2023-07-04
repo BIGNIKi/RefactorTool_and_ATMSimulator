@@ -1,6 +1,6 @@
 ﻿namespace TestTaskCadwise1.Models
 {
-    public class RefactorParams
+    public record RefactorParams
     {
         public string FilePathTo { get; }
 
