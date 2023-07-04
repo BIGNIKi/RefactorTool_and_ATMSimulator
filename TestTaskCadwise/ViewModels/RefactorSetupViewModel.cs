@@ -7,7 +7,7 @@ using TestTaskCadwise1.Models;
 
 namespace TestTaskCadwise1.ViewModels
 {
-    public class RefactorSetupViewModel : ViewModelBase
+    internal class RefactorSetupViewModel : ViewModelBase, IFileSelectable, IRefactorData
     {
         public ResourceDictionary AppResources { get; }
 
@@ -40,19 +40,6 @@ namespace TestTaskCadwise1.ViewModels
                 catch(Exception)
                 {
                 }
-            }
-        }
-
-        private bool _isValidInputLengthWords;
-
-        public bool IsValidInputLengthWords
-        {
-            get => _isValidInputLengthWords;
-
-            set
-            {
-                _isValidInputLengthWords = value;
-                OnPropertyChanged(nameof(IsValidInputLengthWords));
             }
         }
 
@@ -94,23 +81,23 @@ namespace TestTaskCadwise1.ViewModels
             {
                 return _queueInfo;
             }
-            set
+            private set
             {
                 _queueInfo = AppResources["m_QueueInfo"] + " " + value;
                 OnPropertyChanged(nameof(QueueInfo));
             }
         }
 
-        private string _openedFileName;
-        public string OpenedFileName
+        private string _selectedFileName;
+        public string SelectedFileName
         {
             get
             {
-                return _openedFileName;
+                return _selectedFileName;
             }
-            set
+            private set
             {
-                _openedFileName = value;
+                _selectedFileName = value;
                 DisplayedOpenedFileName = AppResources["m_SelectedFile"] + " " + value;
             }
         }
@@ -122,14 +109,14 @@ namespace TestTaskCadwise1.ViewModels
             {
                 return _displayedOpenedFileName;
             }
-            set
+            private set
             {
                 _displayedOpenedFileName = value;
                 OnPropertyChanged(nameof(DisplayedOpenedFileName));
             }
         }
 
-        public RefactorFactory RefactorFactory { get; set; }
+        private RefactorFactory RefactorFactory { get; set; }
 
         public ICommand ChooseFileBtn { get; }
         public ICommand DoRefactorBtn { get; }
@@ -139,17 +126,34 @@ namespace TestTaskCadwise1.ViewModels
             QueueInfo = RefactorFactory.CountOfElemInProgress.ToString();
         }
 
+        public void SetSelectedFile( string selectedFileName )
+        {
+            IsFileSelected = true;
+            SelectedFileName = selectedFileName;
+        }
+
+        public void AddRefactorTask( string filePathTo )
+        {
+
+            var refactorParams = new RefactorParams(filePathTo,
+                SelectedFileName,
+                ShouldDeletePuncMarks,
+                int.Parse(LengthWords));
+
+            RefactorFactory.AddRefactorTask(refactorParams);
+        }
+
         public RefactorSetupViewModel( ResourceDictionary resources )
         {
             AppResources = resources;
             _lengthWords = "0";
-            OpenedFileName = "";
+            SelectedFileName = "";
             RefactorFactory = new();
-            ChooseFileBtn = new ChooseFileCommand(this);
+            ChooseFileBtn = new SelectFileCommand(this);
             DoRefactorBtn = new DoRefactorCommand(this);
             RefactorFactory.PropertyChanged += onElemInQueueChanged;
             QueueInfo = "0";
-            OpenedFileName = "";
+            SelectedFileName = "";
         }
     }
 }

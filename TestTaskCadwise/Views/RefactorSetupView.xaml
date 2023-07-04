@@ -31,7 +31,8 @@
                 Grid.Row="1"
                 Content="{DynamicResource m_SelectFileBtn}"
                 Height="26"
-                Command="{Binding ChooseFileBtn}"/>
+                Command="{Binding ChooseFileBtn}"
+                CommandParameter="{DynamicResource m_fileDilogSelectFile}"/>
 
             <Label
                 x:Name="SelectedFileLabel"
@@ -86,7 +87,8 @@
             Margin="20 10 0 0"
             HorizontalAlignment="Left"
             Height="26"
-            Command="{Binding DoRefactorBtn}"/>
+            Command="{Binding DoRefactorBtn}"
+            CommandParameter="{DynamicResource m_fileDilogSelectFile}"/>
         
         <Label
             Content="{Binding QueueInfo, FallbackValue='Files in the queue to refactor: 0'}"

@@ -4,44 +4,44 @@ using TestTaskCadwise1.ViewModels;
 
 namespace TestTaskCadwise1.Commands
 {
-    public class DoRefactorCommand : CommandBase
+    internal class DoRefactorCommand : CommandBase
     {
-        private readonly RefactorSetupViewModel _refactorSetupViewModel;
+        private readonly IRefactorData _refactorData;
 
-        public DoRefactorCommand( RefactorSetupViewModel refactorSetupViewModel )
+        public DoRefactorCommand( IRefactorData refactorData )
         {
-            _refactorSetupViewModel = refactorSetupViewModel;
-            _refactorSetupViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _refactorData = refactorData;
+            refactorData.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         private void OnViewModelPropertyChanged( object? sender, PropertyChangedEventArgs e )
         {
-            if(e.PropertyName == nameof(RefactorSetupViewModel.IsFileSelected))
+            if(e.PropertyName == nameof(IRefactorData.IsFileSelected))
             {
                 OnCanExecuteChanged();
             }
         }
 
+        public void OnFileSelectedChanged()
+        {
+            OnCanExecuteChanged();
+        }
+
         public override bool CanExecute( object? parameter )
         {
-            return _refactorSetupViewModel.IsFileSelected;
+            return _refactorData.IsFileSelected;
         }
 
         public override void Execute( object? parameter )
         {
-            var isFileSelected = FileFuncs.OpenAndShowFileSaveDialog(_refactorSetupViewModel.AppResources["m_fileDilogSelectFile"].ToString(), out string filePathTo);
+            var isFileSelected = FileFuncs.OpenAndShowFileSaveDialog(parameter.ToString(), out string filePathTo);
 
             if(!isFileSelected)
             {
                 return;
             }
 
-            var refactorParams = new RefactorParams(filePathTo, 
-                _refactorSetupViewModel.OpenedFileName,
-                _refactorSetupViewModel.ShouldDeletePuncMarks,
-                int.Parse(_refactorSetupViewModel.LengthWords));
-
-            _refactorSetupViewModel.RefactorFactory.AddRefactorTask(refactorParams);
+            _refactorData.AddRefactorTask(filePathTo);
         }
     }
 }

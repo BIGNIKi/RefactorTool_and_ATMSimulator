@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTaskCadwise1.Tests", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTaskCadwise2", "TestTaskCadwise2\TestTaskCadwise2.csproj", "{FC5A7D77-F0E6-4097-9E1D-80C2B0D42681}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTaskCadwise2.Tests", "TestTaskCadwise2.Tests\TestTaskCadwise2.Tests.csproj", "{7D7976A3-63D3-42E5-8C82-3EBC45AF689B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTaskCadwise2.Tests", "TestTaskCadwise2.Tests\TestTaskCadwise2.Tests.csproj", "{7D7976A3-63D3-42E5-8C82-3EBC45AF689B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
