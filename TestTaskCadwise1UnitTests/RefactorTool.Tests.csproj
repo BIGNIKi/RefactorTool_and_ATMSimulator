@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestTaskCadwise\TestTaskCadwise1.csproj" />
+    <ProjectReference Include="..\TestTaskCadwise\RefactorTool.csproj" />
   </ItemGroup>
 
   <ItemGroup>
