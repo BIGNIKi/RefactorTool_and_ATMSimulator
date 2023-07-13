@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestTaskCadwise2\TestTaskCadwise2.csproj" />
+    <ProjectReference Include="..\TestTaskCadwise2\ATMSimulator.csproj" />
   </ItemGroup>
 
 </Project>
